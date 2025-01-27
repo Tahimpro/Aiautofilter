@@ -107,7 +107,7 @@ if 'DYNO' in environ:
     ON_HEROKU = True
 else:
     ON_HEROKU = False
-URL = environ.get("FQDN", "https://exceptional-alvira-moviezworld-9b4cb2d7.koyeb.app")
+URL = environ.get("FQDN", "Https://exceptional-alvira-moviezworld-9b4cb2d7.koyeb.app/")
 
 #---------------------------------------------------------------
 #---------------------------------------------------------------
@@ -144,7 +144,7 @@ admin_cmds = [
     "/delreq", "/channel", "/del_file", "/delete",
     "/deletefiles", "/deleteall", 
     "All These Commands Can Be Used Only By Admins.", 
-    "⚡ powered by @JISSHU_BOTS"
+    "⚡ powered by @Mr_Official_300"
 ]
 
 cmds = [
