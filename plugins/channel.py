@@ -76,13 +76,13 @@ async def send_movie_updates(bot, file_name, caption, file_id):
             return 
         processed_movies.add(movie_name)    
         poster_url = await get_imdb(movie_name)
-        caption_message = f"#New_File_Added ✅\n\nFile_Name:- <code>{movie_name}</code>\n\nLanguage:- {language}\n\nQuality:- {quality}" 
+        caption_message = f"<b>#𝖬𝗈𝗏𝗂𝖾/𝖲𝖾𝗋𝗂𝖾𝗌 𝖠𝖽𝖽𝖾𝖽✅\n\n🎬 𝖭𝖺𝗆𝖾:- <code>{movie_name}</code>\n\n<blockquote>🎙️𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾:- {language}\n\n🎚️ 𝖰𝗎𝖺𝗅𝗂𝗍𝗒:- {quality}</blockquote></b>" 
         search_movie = movie_name.replace(" ", '-')
         movie_update_channel = await db.movies_update_channel_id()    
         btn = [[
-            InlineKeyboardButton('📂 ɢᴇᴛ ғɪʟᴇ 📂', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')
+            InlineKeyboardButton('📂 𝖦𝖾𝗍 𝖥𝗂𝗅𝖾 📂', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')
         ],[
-            InlineKeyboardButton('♻️ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ♻️', url=f'https://t.me/How2download_Cpflix_Files')
+            InlineKeyboardButton('📤 𝖧𝗈𝗐 𝖳𝗈 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽 📤', url=f'https://t.me/How2download_Cpflix_Files/4')
         ]]
         reply_markup = InlineKeyboardMarkup(btn)
         if poster_url:
