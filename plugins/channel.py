@@ -75,8 +75,8 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         if movie_name in processed_movies:
             return 
         processed_movies.add(movie_name)    
-        poster_url = await get_imdb(movie_name)
-        caption_message = f"<b><i>#𝖬𝗈𝗏𝗂𝖾/𝖲𝖾𝗋𝗂𝖾𝗌-𝖴𝗉𝖽𝖺𝗍𝖾✅</i>\n\n🎬 𝖭𝖺𝗆𝖾:- <code>{movie_name}</code>\n\n🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾:- {language}\n\n🎚️ 𝖰𝗎𝖺𝗅𝗂𝗍𝗒:- {quality}</b>" 
+       # poster_url = await get_imdb(movie_name)
+        caption_message = f"<b><i>#𝖬𝗈𝗏𝗂𝖾/𝖲𝖾𝗋𝗂𝖾𝗌-𝖴𝗉𝖽𝖺𝗍𝖾✅</i>\n\n🎬 𝖭𝖺𝗆𝖾:- <code>{movie_name}</code>\n\n<blockquote>🎙️ 𝖫𝖺𝗇𝗀𝗎𝖺𝗀𝖾:- {language}\n\n🎚️ 𝖰𝗎𝖺𝗅𝗂𝗍𝗒:- {quality}</blockquote></b>" 
         search_movie = movie_name.replace(" ", '-')
         movie_update_channel = await db.movies_update_channel_id()    
         btn = [[
@@ -85,13 +85,13 @@ async def send_movie_updates(bot, file_name, caption, file_id):
             InlineKeyboardButton('📥 𝖧𝗈𝗐 𝖳𝗈 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽 📥', url=f'https://t.me/How2download_Cpflix_Files/4')
         ]]
         reply_markup = InlineKeyboardMarkup(btn)
-        if poster_url:
-            await bot.send_photo(movie_update_channel if movie_update_channel else MOVIE_UPDATE_CHANNEL, 
-                                 photo=poster_url, caption=caption_message, reply_markup=reply_markup)
-        else:
-            no_poster = "https://telegra.ph/file/88d845b4f8a024a71465d.jpg"
-            await bot.send_photo(movie_update_channel if movie_update_channel else MOVIE_UPDATE_CHANNEL, 
-                                 photo=no_poster, caption=caption_message, reply_markup=reply_markup)  
+     #   if poster_url:
+         #   await bot.send_photo(movie_update_channel if movie_update_channel else MOVIE_UPDATE_CHANNEL, 
+        #                         photo=poster_url, caption=caption_message, reply_markup=reply_markup)
+        #else:
+            #no_poster = "https://telegra.ph/file/88d845b4f8a024a71465d.jpg"
+        await bot.send_message(movie_update_channel if movie_update_channel else MOVIE_UPDATE_CHANNEL, 
+                                 text=caption_message, reply_markup=reply_markup)  
     except Exception as e:
         print('Failed to send movie update. Error - ', e)
         await bot.send_message(LOG_CHANNEL, f'Failed to send movie update. Error - {e}')
