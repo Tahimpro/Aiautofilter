@@ -65,12 +65,14 @@ async def send_movie_updates(bot, file_name, caption, file_id):
                      "camrip", "WEB-DL" "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", 
                      "dvdrip", "dvdscr", "HDTC", "dvdscreen", "HDTS", "hdts"]
         quality = await check_qualities(caption, qualities) or "HDRip"
-        language = ""
-        nb_languages = ["Hindi", "Bengali", "English", "Marathi", "Tamil", "Telugu", "Malayalam", "Kannada", "Punjabi", "Gujrati", "Korean", "Japanese", "Bhojpuri", "Dual", "Multi"]    
-        for lang in nb_languages:
-            if lang.lower() in caption.lower():
-                language += f"{lang}, "
-        language = language.strip(", ") or "Not Idea"
+        caption = caption.lower().replace("hin", "hindi").replace("eng", "english").replace("tam", "tamil").replace("tel", "telugu").replace("mal", "malayalam").replace("kan", "kannada").replace("pun", "punjabi").replace("ben", "bengali").replace("mar", "marathi").replace("guj", "gujrati").replace("kor", "korean").replace("jap", "japanese").replace("bho", "bhojpuri")
+
+language = ""
+nb_languages = ["Hindi", "Bengali", "English", "Marathi", "Tamil", "Telugu", "Malayalam", "Kannada", "Punjabi", "Gujrati", "Korean", "Japanese", "Bhojpuri", "Dual", "Multi"]    
+for lang in nb_languages:
+    if lang.lower() in caption:
+        language += f"{lang}, "
+language = language.strip(", ") or "Not Idea"
         movie_name = await movie_name_format(file_name)    
         if movie_name in processed_movies:
             return 
