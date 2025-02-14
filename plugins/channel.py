@@ -71,9 +71,19 @@ async def send_movie_updates(bot, file_name, caption, file_id):
             file_name = file_name[:file_name.find(season) + 1]
 
         qualities = [
-            "ORG", "org", "hdcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", "camrip", "WEB-DL",
-            "CAMRip", "hdtc", "predvd", "DVDscr", "dvdscr", "dvdrip", "HDTC", "dvdscreen", "HDTS", "hdts"
-        ]
+    "ORG", "org", "HDcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", "Camrip", "CAMRip", "hdtc", "HDTC",
+    "predvd", "PreDVD", "DVDscr", "dvdscr", "DVDScreen", "dvdscreen", "HDTS", "hdts", "WEB-DL", "web-dl",
+    "WEBRip", "webrip", "BluRay", "bluray", "BRRip", "brrip", "DVDRip", "dvdrip", "TS", "ts", "R5", "r5",
+    "SCR", "scr", "Screener", "screener", "TC", "tc", "Telecine", "telecine", "PPV", "ppv", "TVRip", "tvrip",
+    "VHSRip", "vhsrip", "PDTV", "pdtv", "DVDR", "dvdr", "BDRip", "bdrip", "BDRemux", "bdremux", "Remux", "remux",
+    "WEB", "web", "WEB-DLRip", "web-dlrip", "WEB-HDRip", "web-hdrip", "HMAX", "hmax", "NF", "nf", "AMZN", "amzn",
+    "DSNP", "dsnp", "iTunes", "itunes", "VODRip", "vodrip", "SCREENER", "screener", "Workprint", "workprint",
+    "TCRip", "tcrip", "Festival", "festival", "Final", "final", "Unrated", "unrated", "Extended", "extended", 
+    "Director's Cut", "director's cut", "HEVC", "hevc", "x265", "X265", "x264", "X264", "AVC", "avc", "h264", "H264",
+    "h265", "H265", "VP9", "vp9", "AV1", "av1", "DivX", "divx", "XviD", "xvid", "MPEG2", "mpeg2", "MPEG4", "mpeg4",
+    "AMZN", "amzn", "NF", "nf", "HMAX", "hmax", "DSNP", "dsnp", "HULU", "hulu", "iTunes", "itunes", "AppleTV", "appletv",
+    "Scene", "scene", "P2P", "p2p", "Repack", "repack", "Proper", "proper", "REAL", "real", "Line", "line", "Internal", "internal"
+]
 
         quality = await check_qualities(caption, qualities) or "HDRip"
 
