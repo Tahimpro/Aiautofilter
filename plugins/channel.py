@@ -110,10 +110,10 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         processed_movies.add(movie_name)
 
         caption_message = (
-            f"<b><u>𝗧𝗢𝗗𝗔𝗬 𝗨𝗣𝗗𝗔𝗧𝗘𝗦✅</u>\n\n"
-            f"🎬 {movie_name}\n\n"
+            f"<b><u>❗𝗧𝗢𝗗𝗔𝗬 𝗨𝗣𝗗𝗔𝗧𝗘𝗦❗</u>\n\n"
+            f"{movie_name}✅ #UPDATED\n\n"
             f"<blockquote>🎙️{language}\n\n"
-            f"📺{quality}</blockquote></b>"
+            f"📺 {quality}</blockquote></b>"
         )
 
         search_movie = movie_name.replace(" ", '-')
