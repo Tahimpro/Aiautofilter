@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
-from Info import LOG_CHANNEL  # Importing log channel from Info.py
+from info import LOG_CHANNEL  # Importing log channel from Info.py
 
 # List of channels to check
 HUB_CNL = [
