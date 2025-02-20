@@ -5,8 +5,8 @@ from Info import LOG_CHANNEL  # Importing log channel from Info.py
 
 # List of channels to check
 HUB_CNL = [
-    -1001234567890,  # Replace with your channel IDs
-    -1009876543210
+    -1001826628728,  # Replace with your channel IDs
+    -1002372412575
 ]
 
 MOVIE_GROUP_LINK = "https://t.me/CpFlicks_Movies"  # Replace with your Movie Group link
