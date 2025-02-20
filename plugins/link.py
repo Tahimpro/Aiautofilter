@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 from info import LOG_CHANNEL  # Importing log channel from Info.py
@@ -22,17 +22,19 @@ async def check_channels_and_send_links(bot, message):
     for channel in HUB_CNL:
         try:
             member = await bot.get_chat_member(channel, user_id)
-            if member.status not in ["member", "administrator", "owner"]:
+            if member.status not in [
+                enums.ChatMemberStatus.MEMBER,
+                enums.ChatMemberStatus.ADMINISTRATOR,
+                enums.ChatMemberStatus.OWNER
+            ]:
                 not_joined_channels.append(channel)
 
         except Exception as e:
-            # Handle the USER_NOT_PARTICIPANT error by assuming user is not in the channel
-            if "USER_NOT_PARTICIPANT" in str(e):
-                not_joined_channels.append(channel)
-            else:
-                error_msg = f"❌ Error checking membership in channel {channel}: {e}"
-                print(error_msg)
-                await bot.send_message(LOG_CHANNEL, error_msg)
+            # If error, assume user is not in the channel
+            not_joined_channels.append(channel)
+            error_msg = f"❌ Error checking membership in channel {channel}: {e}"
+            print(error_msg)
+            await bot.send_message(LOG_CHANNEL, error_msg)
 
     if not not_joined_channels:
         text = (
