@@ -20,6 +20,9 @@ async def check_channels_and_send_links(bot, message):
     user_id = message.from_user.id
     chat_id = message.chat.id
 
+    # Send a processing message
+    processing_msg = await bot.send_message(chat_id, "🏴‍☠️ 𝖠𝗅𝗅 𝖫𝗂𝗇𝗄𝗌 𝖢𝗋𝖾𝖺𝗍𝖾𝖽, 𝖶𝖺𝗂𝗍 𝖥𝗈𝗋 𝖲𝖾𝗋𝗏𝖾𝗋 𝖱𝖾𝗌𝗉𝗈𝗇𝗌𝖾... 🏴‍☠️")
+
     not_joined_channels = []
     invite_links = {}
 
@@ -65,6 +68,9 @@ async def check_channels_and_send_links(bot, message):
                 print(f"❌ Error generating invite link for {channel}: {e}")  # Only print in terminal
 
     reply_markup = InlineKeyboardMarkup(buttons)
+
+    # Delete the processing message and send the actual response
+    await processing_msg.delete()
     sent_message = await bot.send_message(chat_id, text, reply_markup=reply_markup, disable_web_page_preview=True)
 
     await asyncio.sleep(60)
