@@ -5,8 +5,12 @@ from info import LOG_CHANNEL  # Importing log channel from Info.py
 
 # List of channels to check
 HUB_CNL = [
-    -1001826628728,  # Replace with your channel IDs
-    -1002372412575
+    -1001826628728,
+    -1002372412575,
+    -1002334754999,
+    -1002342391631,
+    -1002372474393,
+    -1002431417493
 ]
 
 MOVIE_GROUP_LINK = "https://t.me/CpFlicks_Movies"  # Replace with your Movie Group link
@@ -30,7 +34,6 @@ async def check_channels_and_send_links(bot, message):
                 not_joined_channels.append(channel)
 
         except Exception as e:
-            # If error, assume user is not in the channel
             not_joined_channels.append(channel)
             error_msg = f"❌ Error checking membership in channel {channel}: {e}"
             print(error_msg)
@@ -41,7 +44,6 @@ async def check_channels_and_send_links(bot, message):
             "<b>🎉 𝖢𝗈𝗇𝗀𝗋𝖺𝗍𝗎𝗅𝖺𝗍𝗂𝗈𝗇𝗌 🎉\n\n"
             "𝖸𝗈𝗎 𝖠𝗋𝖾 𝖠𝗅𝗋𝖾𝖺𝖽𝗒 𝖯𝗋𝖾𝗌𝖾𝗇𝗍 𝖨𝗇 𝖠𝗅𝗅 𝖮𝗎𝗋 𝖧𝗎𝖻 𝖢𝗁𝖺𝗇𝗇𝖾𝗅𝗌.</b>"
         )
-
         buttons = [[InlineKeyboardButton("📂 Movie Group 📂", url=MOVIE_GROUP_LINK)]]
     else:
         text = (
@@ -67,9 +69,8 @@ async def check_channels_and_send_links(bot, message):
     reply_markup = InlineKeyboardMarkup(buttons)
     sent_message = await bot.send_message(chat_id, text, reply_markup=reply_markup, disable_web_page_preview=True)
 
-    await asyncio.sleep(60)  # Wait for 1 minute
+    await asyncio.sleep(60)
 
-    # Revoke created invite links
     for channel, link in invite_links.items():
         try:
             await bot.revoke_chat_invite_link(channel, link)
@@ -78,4 +79,18 @@ async def check_channels_and_send_links(bot, message):
             print(error_msg)
             await bot.send_message(LOG_CHANNEL, error_msg)
 
-    await sent_message.delete()  # Delete message after 1 minute
+    await sent_message.delete()
+
+# Monitor new members joining via invite links
+@Client.on_chat_member_updated()
+async def monitor_new_members(bot, member_update):
+    if member_update.new_chat_member:
+        user = member_update.new_chat_member.user
+        chat_id = member_update.chat.id
+        if chat_id in HUB_CNL:
+            log_text = (
+                f"✅ **New Member Joined via Invite Link**\n\n"
+                f"🔹 **User:** {user.mention} (`{user.id}`)\n"
+                f"🔹 **Channel:** {member_update.chat.title} (`{chat_id}`)"
+            )
+            await bot.send_message(LOG_CHANNEL, log_text)
