@@ -34,10 +34,10 @@ async def check_channels_and_send_links(bot, message):
                 not_joined_channels.append(channel)
 
         except Exception as e:
-            not_joined_channels.append(channel)
-            error_msg = f"❌ Error checking membership in channel {channel}: {e}"
-            print(error_msg)
-            await bot.send_message(LOG_CHANNEL, error_msg)
+            if "USER_NOT_PARTICIPANT" in str(e) or "CHAT_ADMIN_REQUIRED" in str(e):
+                not_joined_channels.append(channel)  # Assume user is not a member
+            else:
+                print(f"❌ Error checking membership in channel {channel}: {e}")  # Only print in terminal
 
     if not not_joined_channels:
         text = (
@@ -62,9 +62,7 @@ async def check_channels_and_send_links(bot, message):
                 chat = await bot.get_chat(channel)
                 buttons.append([InlineKeyboardButton(f"📌 {chat.title} #EXCLUSIVE", url=invite_link.invite_link)])
             except Exception as e:
-                error_msg = f"❌ Error generating invite link for {channel}: {e}"
-                print(error_msg)
-                await bot.send_message(LOG_CHANNEL, error_msg)
+                print(f"❌ Error generating invite link for {channel}: {e}")  # Only print in terminal
 
     reply_markup = InlineKeyboardMarkup(buttons)
     sent_message = await bot.send_message(chat_id, text, reply_markup=reply_markup, disable_web_page_preview=True)
@@ -75,9 +73,7 @@ async def check_channels_and_send_links(bot, message):
         try:
             await bot.revoke_chat_invite_link(channel, link)
         except Exception as e:
-            error_msg = f"❌ Error revoking invite link for {channel}: {e}"
-            print(error_msg)
-            await bot.send_message(LOG_CHANNEL, error_msg)
+            print(f"❌ Error revoking invite link for {channel}: {e}")  # Only print in terminal
 
     await sent_message.delete()
 
