@@ -6,10 +6,10 @@ async def about_handler(bot, message: Message):
     about_text = (
         "📌 <b>About 🇹ᴏɴʏ 🇸ᴛᴀʀᴋ</b>\n"
         "〰〰〰〰〰〰〰〰〰〰〰\n\n"
-        "<blockquote>❗️𝖠𝖽𝗆𝗂𝗇            - @Mr_Official_300\n"
+        "<blockquote><b>❗️𝖠𝖽𝗆𝗂𝗇            - @Mr_Official_300\n"
         "❗️𝖫𝗈𝗀𝗌   - @TonyStark_Logs_Channel\n"
         "❗️𝖧𝗈𝗌𝗍𝖾𝖽 𝖲𝖾𝗋𝗏𝖾𝗋 - 𝖧𝖾𝗋𝗈𝗄𝗎\n"
-        "❗️Database        - 𝖬𝗒𝖲𝖰𝖫</blockquote>"
+        "❗️Database        - 𝖬𝗒𝖲𝖰𝖫</b></blockquote>"
     )
 
     # Reply with about message
