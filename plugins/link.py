@@ -58,7 +58,7 @@ async def check_channels_and_send_links(bot, message):
                 invite_link = await bot.create_chat_invite_link(channel, creates_join_request=True)
                 invite_links[channel] = invite_link.invite_link
                 chat = await bot.get_chat(channel)
-                buttons.append([InlineKeyboardButton(f"📌 Request to Join {chat.title}", url=invite_link.invite_link)])
+                buttons.append([InlineKeyboardButton(f"📌 {chat.title} #EXCLUSIVE", url=invite_link.invite_link)])
             except Exception as e:
                 error_msg = f"❌ Error generating invite link for {channel}: {e}"
                 print(error_msg)
