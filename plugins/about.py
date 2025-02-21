@@ -4,7 +4,7 @@ from pyrogram.types import Message
 @Client.on_message(filters.command("about") & filters.private)
 async def about_handler(bot, message: Message):
     about_text = (
-        "📌 <b><u>About Tᴏɴʏ Sᴛᴀʀᴋ</u></b>\n"
+        "📌 <b><blockquote><u>About Tᴏɴʏ Sᴛᴀʀᴋ</u></blockquote></b>\n"
         "〰〰〰〰〰〰〰〰〰〰〰\n\n"
         "<b>❗️𝖠𝖽𝗆𝗂𝗇            - @Mr_Official_300\n"
         "❗️𝖫𝗈𝗀𝗌   - @TonyStark_Logs_Channel\n"
