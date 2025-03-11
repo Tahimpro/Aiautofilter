@@ -63,14 +63,19 @@ async def send_movie_updates(bot, file_name, caption, file_id):
             file_name = file_name[:file_name.find(season) + 1]
 
         qualities = [
-            "HDRip", "WEB-DL", "BluRay", "BRRip", "DVDRip", "HDcam", "HDCAM", "HQ", "HDTC", "WEBRip", "BDRip",
-            "x264", "x265", "AV1", "HEVC", "AMZN", "NF", "DSNP", "iTunes", "HMAX", "SCREENER", "CAMRip", "HDCAM",
-            "HDTS", "DVDScr", "TS", "TC", "WEBSCR", "VCDRip", "SVCDRip", "TVRip", "PPVRip", "R5", "R6", "TELECINE",
-            "TELESYNC", "MicroHD", "MiniHD", "FullHD", "UltraHD", "4K", "8K", "1080p", "720p", "480p", "360p",
-            "2160p", "1440p", "3D", "Remux", "DV", "Dolby Vision", "Atmos", "HDR10", "Hybrid", "WEB", "PROPER",
-            "UNRATED", "EXTENDED", "DC", "IMAX", "BDRemux", "ISO", "Untouched", "Lossless", "AAC", "DTS", "TrueHD",
-            "FLAC", "DTS-HD", "MA", "EAC3", "5.1", "7.1", "2.0"
-        ]
+    "ORG", "org", "HDcam", "HDCAM", "HQ", "hq", "HDRip", "hdrip", "Camrip", "CAMRip", "hdtc", "HDTC",
+    "predvd", "PreDVD", "DVDscr", "dvdscr", "DVDScreen", "dvdscreen", "HDTS", "hdts", "WEB-DL", "web-dl",
+    "WEBRip", "webrip", "BluRay", "bluray", "BRRip", "brrip", "DVDRip", "dvdrip", "TS", "ts", "R5", "r5",
+    "SCR", "scr", "Screener", "screener", "TC", "tc", "Telecine", "telecine", "PPV", "ppv", "TVRip", "tvrip",
+    "VHSRip", "vhsrip", "PDTV", "pdtv", "DVDR", "dvdr", "BDRip", "bdrip", "BDRemux", "bdremux", "Remux", "remux",
+    "WEB", "web", "WEB-DLRip", "web-dlrip", "WEB-HDRip", "web-hdrip", "HMAX", "hmax", "NF", "nf", "AMZN", "amzn",
+    "DSNP", "dsnp", "iTunes", "itunes", "VODRip", "vodrip", "SCREENER", "screener", "Workprint", "workprint",
+    "TCRip", "tcrip", "Festival", "festival", "Final", "final", "Unrated", "unrated", "Extended", "extended", 
+    "Director's Cut", "director's cut", "HEVC", "hevc", "x265", "X265", "x264", "X264", "AVC", "avc", "h264", "H264",
+    "h265", "H265", "VP9", "vp9", "AV1", "av1", "DivX", "divx", "XviD", "xvid", "MPEG2", "mpeg2", "MPEG4", "mpeg4",
+    "AMZN", "amzn", "NF", "nf", "HMAX", "hmax", "DSNP", "dsnp", "HULU", "hulu", "iTunes", "itunes", "AppleTV", "appletv",
+    "Scene", "scene", "P2P", "p2p", "Repack", "repack", "Proper", "proper", "REAL", "real", "Line", "line", "Internal", "internal"
+]
 
         quality = await check_qualities(caption, qualities) or "HDRip"
 
@@ -89,7 +94,7 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         for lang in nb_languages:
             if lang.lower() in caption:
                 language += f"{lang}, "
-        language = language.strip(", ") or "Language Not Available On File Name Check Manually"
+        language = language.strip(", ") or "Original Language"
 
         movie_name = await movie_name_format(file_name)
         if movie_name in processed_movies:
@@ -102,17 +107,17 @@ async def send_movie_updates(bot, file_name, caption, file_id):
         genres = imdb.get("genres") if imdb else "Unknown"
 
         caption_message = (
-            f"✅ {movie_name} #{kind}\n\n"
-            f"🎙️{language} 📺{quality}\n\n"
-            f"🌟[IMDB Info]({imdb_url})\n"
-            f"📽️Genre : {genres}"
+            f"<b>✅ {movie_name} #{kind}</b>\n\n"
+            f"```🎙️{language} 📺{quality}```\n\n"
+            f"<b>🌟[IMDB Info]({imdb_url})</b>\n"
+            f"<b>📽️Genre : {genres}</b>"
         )
 
         search_movie = movie_name.replace(" ", '-')
         movie_update_channel = await db.movies_update_channel_id()
 
         btn = [
-            [InlineKeyboardButton('📂 𝖦𝖾𝗍 𝖥𝗂𝗅𝖾 📂', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')]
+            [InlineKeyboardButton('𝖦𝖾𝗍 𝖥𝗂𝗅𝖾 🔎', url=f'https://telegram.me/{temp.U_NAME}?start=getfile-{search_movie}')]
         ]
 
         reply_markup = InlineKeyboardMarkup(btn)
