@@ -108,7 +108,7 @@ async def send_movie_updates(bot, file_name, caption, file_id):
 
         caption_message = (
             f"<b>✅ {movie_name} #{kind}</b>\n\n"
-            f"```🎙️{language} 📺{quality}```\n\n"
+            f"🎙️{language}\n\n"
             f"<b>🌟[IMDB Info]({imdb_url})</b>\n"
             f"<b>📽️Genre : {genres}</b>"
         )
@@ -124,7 +124,7 @@ async def send_movie_updates(bot, file_name, caption, file_id):
 
         await bot.send_message(
             movie_update_channel if movie_update_channel else MOVIE_UPDATE_CHANNEL,
-            text=caption_message, reply_markup=reply_markup
+            text=caption_message, reply_markup=reply_markup, disable_web_page_preview=True
         )
 
     except Exception as e:
