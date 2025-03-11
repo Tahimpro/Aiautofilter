@@ -103,8 +103,8 @@ async def send_movie_updates(bot, file_name, caption, file_id):
 
         imdb = await get_poster(movie_name)
         imdb_url = imdb.get("url") if imdb else "N/A"
-        kind = imdb.get("kind") if imdb else "Unknown"
-        genres = imdb.get("genres") if imdb else "Unknown"
+        kind = imdb.get("kind", "Unknown").strip().upper().replace(" ", "") if imdb else "#UPDATED"
+        genres = imdb.get("genres", "Unknown").strip() if imdb else "UNKNOWN"
 
         caption_message = (
             f"<b>✅ {movie_name} #{kind}</b>\n\n"
