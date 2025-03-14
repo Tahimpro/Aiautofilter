@@ -634,25 +634,30 @@ async def deletemultiplefiles(bot, message):
 @Client.on_message(filters.command("del_file"))
 async def delete_files(bot, message):
     if message.from_user.id not in ADMINS:
-        await message.reply('Only the bot owner can use this command... 😑')
-        return
+        return await message.reply('Only the bot owner can use this command... 😑')
+
     chat_type = message.chat.type
     if chat_type != enums.ChatType.PRIVATE:
         return await message.reply_text(f"<b>Hey {message.from_user.mention}, this command won't work in groups. It only works on my PM!</b>")    
+    
     try:
         keywords = message.text.split(" ", 1)[1].split(",")
     except IndexError:
         return await message.reply_text(f"<b>Hey {message.from_user.mention}, give me keywords separated by commas along with the command to delete files.</b>")   
+    
     deleted_files_count = 0
     not_found_files = []
+
     for keyword in keywords:
-        result = await Media.collection.delete_many({'file_name': keyword.strip()})
-        if result.deleted_count:
-            deleted_files_count += 1
+        result = await Media.collection.delete_many({'file_name': {'$regex': keyword.strip(), '$options': 'i'}})
+        if result.deleted_count > 0:
+            deleted_files_count += result.deleted_count
         else:
             not_found_files.append(keyword.strip())
+
     if deleted_files_count > 0:
-        await message.reply_text(f'<b>{deleted_files_count} file successfully deleted from the database 💥</b>')
+        await message.reply_text(f'<b>{deleted_files_count} file(s) successfully deleted from the database 💥</b>')
+        
     if not_found_files:
         await message.reply_text(f'<b>Files not found in the database - <code>{", ".join(not_found_files)}</code></b>')
 
