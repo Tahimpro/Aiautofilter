@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from pyrogram import filters, enums
 from pyrogram.errors import UserNotParticipant, ChatAdminRequired, UsernameNotOccupied, UsernameInvalid
 from pyrogram.types import *
-from helpers.fsub_helpers import is_admin, can_ban_members, can_change_info
+from helper.fsub_helpers import is_admin, can_ban_members, can_change_info
 
 MONGO = MONGODB_URL
 mongo = MongoClient(MONGO)
