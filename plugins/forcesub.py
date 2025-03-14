@@ -1,4 +1,4 @@
-from info import DATABASE_URL
+from info import DATABASE_URI
 from pymongo import MongoClient
 from pyrogram import filters, enums
 from pyrogram.errors import UserNotParticipant, ChatAdminRequired, UsernameNotOccupied, UsernameInvalid
